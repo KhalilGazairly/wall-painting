@@ -20,7 +20,7 @@ export function About() {
           <div className="relative order-2 lg:order-1">
             <div className="relative overflow-hidden rounded-3xl shadow-2xl">
               <img
-                src="https://i.postimg.cc/50YxL246/Whats-App-Image-2026-09-16-at-2-29-43-AM.jpg"
+                src="../alaa.jpeg"
                 alt="الفنان أثناء العمل"
                 className="h-[500px] w-full object-cover"
               />

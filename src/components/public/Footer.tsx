@@ -92,12 +92,12 @@ export function Footer() {
           <p className="text-sm text-white/40">
             © {new Date().getFullYear()} {siteName}. جميع الحقوق محفوظة.
           </p>
-          <a
+          {/* <a
             href="/admin"
             className="text-xs text-white/30 transition-colors hover:text-gold-300"
           >
             لوحة التحكم
-          </a>
+          </a> */}
         </div>
       </div>
 
