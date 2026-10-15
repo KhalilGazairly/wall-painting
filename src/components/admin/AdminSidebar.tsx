@@ -37,17 +37,18 @@ export function AdminSidebar({ activePage, onNavigate, isOpen, onClose }: AdminS
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-charcoal-950/60 backdrop-blur-sm lg:hidden animate-fade-in"
+          className="fixed inset-0 z-40 bg-charcoal-950/60 backdrop-blur-sm lg:hidden"
           onClick={onClose}
         />
       )}
 
+      {/* Sidebar: hidden off-canvas on mobile, fixed visible on desktop */}
       <aside
-        className={`fixed right-0 top-0 z-50 flex h-full w-72 flex-col border-l border-white/10 bg-charcoal-950 transition-transform duration-300 lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 z-50 flex h-full w-72 flex-col overflow-y-auto border-l border-white/10 bg-charcoal-950 transition-all duration-300 ease-in-out lg:right-0 ${
+          isOpen ? 'right-0' : '-right-72'
         }`}
       >
-        {/* Logo */}
+        {/* Logo + close */}
         <div className="flex items-center justify-between gap-3 border-b border-white/10 px-6 py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold-500 shadow-lg shadow-gold-500/30">
@@ -61,13 +62,14 @@ export function AdminSidebar({ activePage, onNavigate, isOpen, onClose }: AdminS
           <button
             onClick={onClose}
             className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+            aria-label="إغلاق القائمة"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-6">
+        <nav className="flex-1 space-y-1 px-4 py-6">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activePage === item.key;
