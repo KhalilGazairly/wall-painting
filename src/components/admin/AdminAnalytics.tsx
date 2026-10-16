@@ -179,31 +179,44 @@ export function AdminAnalytics() {
             <BarChart3 className="h-5 w-5 text-charcoal-400" />
             <h3 className="font-bold text-charcoal-900">آخر 14 يوماً</h3>
           </div>
-          <div className="flex items-end justify-between gap-1.5 h-48">
-            {summary?.dailyViews.map((day) => {
-              const viewsHeight = (day.views / maxDaily) * 100;
-              const clicksHeight = (day.clicks / maxDaily) * 100;
-              return (
-                <div key={day.date} className="flex flex-1 flex-col items-center gap-1">
-                  <div className="flex w-full items-end justify-center gap-0.5 h-full">
-                    <div
-                      className="w-2.5 rounded-t bg-blue-400 transition-all hover:bg-blue-500"
-                      style={{ height: `${Math.max(viewsHeight, 2)}%` }}
-                      title={`${day.views} زيارة`}
-                    />
-                    <div
-                      className="w-2.5 rounded-t bg-gold-400 transition-all hover:bg-gold-500"
-                      style={{ height: `${Math.max(clicksHeight, 2)}%` }}
-                      title={`${day.clicks} نقرة`}
-                    />
-                  </div>
-                  <span className="text-[9px] text-charcoal-300">
+          {summary && summary.dailyViews.length > 0 ? (
+            <>
+              {/* Bar area — fixed height so percentage bars resolve correctly */}
+              <div className="flex items-end justify-between gap-1 sm:gap-1.5 h-44">
+                {summary.dailyViews.map((day) => {
+                  const viewsHeight = (day.views / maxDaily) * 100;
+                  const clicksHeight = (day.clicks / maxDaily) * 100;
+                  return (
+                    <div key={day.date} className="flex h-full flex-1 items-end justify-center gap-0.5 sm:gap-1">
+                      <div
+                        className="w-1.5 rounded-t bg-blue-400 transition-all hover:bg-blue-500 sm:w-2.5"
+                        style={{ height: `${Math.max(viewsHeight, 3)}%` }}
+                        title={`${day.views} زيارة`}
+                      />
+                      <div
+                        className="w-1.5 rounded-t bg-gold-400 transition-all hover:bg-gold-500 sm:w-2.5"
+                        style={{ height: `${Math.max(clicksHeight, 3)}%` }}
+                        title={`${day.clicks} نقرة`}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {/* Date labels — separate row to avoid height conflicts */}
+              <div className="mt-2 flex justify-between gap-1 sm:gap-1.5">
+                {summary.dailyViews.map((day) => (
+                  <span key={day.date} className="flex-1 text-center text-[8px] text-charcoal-300 sm:text-[9px]">
                     {day.date.slice(5).replace('-', '/')}
                   </span>
-                </div>
-              );
-            })}
-          </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <BarChart3 className="h-10 w-10 text-charcoal-200" />
+              <p className="mt-3 text-sm text-charcoal-400">لا توجد بيانات بعد</p>
+            </div>
+          )}
           {/* Legend */}
           <div className="mt-4 flex items-center justify-center gap-6">
             <div className="flex items-center gap-2">
